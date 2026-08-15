@@ -6,10 +6,10 @@
 
 Inspect block changes, search gameplay history, and safely roll back world and inventory changes without NMS.
 
-![Minecraft](https://img.shields.io/badge/Minecraft-1.20.x%20%7C%201.21.x%20%7C%2026.x-2ea043?style=flat-square)
-![Java](https://img.shields.io/badge/Java-17%2B-e76f00?style=flat-square)
-![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)
-![Build](https://img.shields.io/github/actions/workflow/status/TrueWulf/RollBack/build.yml?branch=main&style=flat-square&label=build)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.20.x%20baseline-2ea043?style=flat-square)](COMPATIBILITY.md)
+[![Java](https://img.shields.io/badge/Java-17%2B-e76f00?style=flat-square)](https://adoptium.net/temurin/releases/?version=17)
+[![License](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](LICENSE)
+[![Build](https://img.shields.io/github/actions/workflow/status/TrueWulf/RollBack/build.yml?branch=main&style=flat-square&label=build)](https://github.com/TrueWulf/RollBack/actions/workflows/build.yml)
 
 [Support RollBack on Ko-fi](https://ko-fi.com/truewulf/goal?g=0)
 
@@ -17,9 +17,27 @@ Inspect block changes, search gameplay history, and safely roll back world and i
 
 ## Overview
 
-RollBack is a lightweight CoreProtect-style history plugin for Bukkit-compatible servers. It records block, inventory, container, item, death, kill, crafting, chat, command, session, and sign events, then provides compact lookup and conflict-aware rollback commands.
+RollBack is a lightweight CoreProtect-style history plugin for Bukkit-compatible servers. It records server changes and gives administrators a clear way to inspect and reverse them without restarting the server.
 
-The plugin uses Bukkit APIs and platform-aware scheduling. It does not require NMS, WorldEdit, or DuckDB at runtime by default.
+The plugin uses Bukkit APIs and platform-aware scheduling. SQLite works out of the box. WorldEdit and DuckDB are optional.
+
+## Quick Start
+
+1. Install `RollBack-0.5.0.jar` on the backend server.
+2. Start the server and check `/rb status`.
+3. Preview a rollback before applying it:
+
+```text
+/rb rollback 10m --near=10 --preview
+```
+
+4. Apply the same operation when the preview is correct:
+
+```text
+/rb rollback 10m --near=10
+```
+
+`--near=10` means ten blocks in each direction from your current position. It searches a block cube, not ten chunks.
 
 ## Features
 
@@ -89,6 +107,13 @@ The full command is `/rollback`; `/rb` is its alias.
 ```
 
 `--near=10` searches a 10-block cube around the player's current position. It is not a chunk radius. A rollback changes only events in the selected scope and time range; blocks with a newer conflicting state are skipped.
+
+### What gets rolled back
+
+- Blocks are rolled back automatically when their current state still matches the recorded change.
+- Player inventory transactions use before/after snapshots and are skipped when the inventory changed afterwards.
+- Container transfer events are recorded and searchable; automatic container restoration is not enabled yet.
+- Preview never changes the world or inventory.
 
 See [`CONFIGURATION.md`](CONFIGURATION.md) for filters, database settings, permissions, and inventory rollback behavior.
 
