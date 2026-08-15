@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import java.util.Optional;
 import java.nio.file.Path;
 
-@Plugin(id = "rollback-proxy", name = "RollBack Proxy", version = "0.5.0")
+@Plugin(id = "rollback-proxy", name = "RollBack Proxy", version = "0.6.0")
 public final class RollBackVelocityPlugin {
     private static final MinecraftChannelIdentifier CHANNEL = MinecraftChannelIdentifier.create("rollback", "command");
     private final ProxyServer proxy;

@@ -6,13 +6,16 @@
 
     <groupId>com.rollback</groupId>
     <artifactId>RollBack</artifactId>
-    <version>0.5.0</version>
+    <version>0.6.0</version>
     <packaging>jar</packaging>
 
     <properties>
         <java.version>17</java.version>
         <kotlin.version>2.1.20</kotlin.version>
-        <spigot.version>1.20.6-R0.1-SNAPSHOT</spigot.version>
+        <server-api.groupId>io.papermc.paper</server-api.groupId>
+        <server-api.artifactId>paper-api</server-api.artifactId>
+        <server-api.version>1.20.1-R0.1-SNAPSHOT</server-api.version>
+        <artifact.suffix>1.20.x</artifact.suffix>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -21,13 +24,17 @@
             <id>spigotmc</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>${spigot.version}</version>
+            <groupId>${server-api.groupId}</groupId>
+            <artifactId>${server-api.artifactId}</artifactId>
+            <version>${server-api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -54,6 +61,7 @@
     </dependencies>
 
     <build>
+        <finalName>RollBack-${artifact.suffix}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -66,7 +74,7 @@
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
                 <configuration>
-                    <jvmTarget>${java.version}</jvmTarget>
+                    <jvmTarget>17</jvmTarget>
                     <javaParameters>true</javaParameters>
                     <sourceDirs>
                         <source>src/main/kotlin</source>
@@ -119,4 +127,62 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>mc-1.20</id>
+            <activation><activeByDefault>true</activeByDefault></activation>
+            <properties>
+                <server-api.groupId>io.papermc.paper</server-api.groupId>
+                <server-api.artifactId>paper-api</server-api.artifactId>
+                <server-api.version>1.20.1-R0.1-SNAPSHOT</server-api.version>
+                <artifact.suffix>1.20.x</artifact.suffix>
+            </properties>
+        </profile>
+        <profile>
+            <id>spigot-1.20</id>
+            <properties>
+                <server-api.groupId>org.spigotmc</server-api.groupId>
+                <server-api.artifactId>spigot-api</server-api.artifactId>
+                <server-api.version>1.20.6-R0.1-SNAPSHOT</server-api.version>
+                <artifact.suffix>Spigot-1.20.x</artifact.suffix>
+            </properties>
+        </profile>
+        <profile>
+            <id>mc-1.21</id>
+            <properties>
+                <server-api.groupId>io.papermc.paper</server-api.groupId>
+                <server-api.artifactId>paper-api</server-api.artifactId>
+                <server-api.version>1.21.11-R0.1-SNAPSHOT</server-api.version>
+                <artifact.suffix>1.21.x</artifact.suffix>
+            </properties>
+        </profile>
+        <profile>
+            <id>spigot-1.21</id>
+            <properties>
+                <server-api.groupId>org.spigotmc</server-api.groupId>
+                <server-api.artifactId>spigot-api</server-api.artifactId>
+                <server-api.version>1.21.1-R0.1-SNAPSHOT</server-api.version>
+                <artifact.suffix>Spigot-1.21.x</artifact.suffix>
+            </properties>
+        </profile>
+        <profile>
+            <id>mc-26-1</id>
+            <properties>
+                <server-api.groupId>io.papermc.paper</server-api.groupId>
+                <server-api.artifactId>paper-api</server-api.artifactId>
+                <server-api.version>26.1.1.build.29-alpha</server-api.version>
+                <artifact.suffix>26.1.x</artifact.suffix>
+            </properties>
+        </profile>
+        <profile>
+            <id>mc-26</id>
+            <properties>
+                <server-api.groupId>io.papermc.paper</server-api.groupId>
+                <server-api.artifactId>paper-api</server-api.artifactId>
+                <server-api.version>26.2.build.112-stable</server-api.version>
+                <artifact.suffix>26.2</artifact.suffix>
+            </properties>
+        </profile>
+    </profiles>
 </project>

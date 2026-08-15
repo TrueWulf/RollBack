@@ -6,10 +6,12 @@ RollBack uses separate proxy artifacts because Velocity and Waterfall do not pro
 
 | Proxy | Artifact |
 | --- | --- |
-| Velocity 3.x | `rollback-velocity-0.5.0.jar` |
-| Waterfall / BungeeCord-compatible | `rollback-waterfall-0.5.0.jar` |
+| Velocity 3.x | `rollback-velocity-0.6.0.jar` |
+| Waterfall / BungeeCord-compatible | `rollback-waterfall-0.6.0.jar` |
 
-Install the proxy artifact in the proxy's plugin directory. Install `RollBack-0.5.0.jar` separately on every backend server that should record or apply rollbacks.
+Install the proxy artifact in the proxy's plugin directory. Proxy artifacts are independent of the backend Minecraft version. Install the matching versioned RollBack backend artifact separately on every backend server that should record or apply rollbacks.
+
+For example, use `RollBack-1.20.x.jar` on a Paper 1.20.x backend and `RollBack-Spigot-1.21.x.jar` on a Spigot 1.21.x backend. The same proxy adapter can route to both.
 
 ## What the adapters do
 

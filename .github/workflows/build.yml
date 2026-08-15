@@ -8,15 +8,31 @@ on:
 
 jobs:
   backend:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: mc-1.20
+            java: '17'
+          - profile: spigot-1.20
+            java: '17'
+          - profile: mc-1.21
+            java: '21'
+          - profile: spigot-1.21
+            java: '21'
+          - profile: mc-26-1
+            java: '26'
+          - profile: mc-26
+            java: '26'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '17'
+          java-version: ${{ matrix.java }}
           cache: maven
-      - run: mvn clean test package
+      - run: mvn --batch-mode clean test package -P${{ matrix.profile }}
 
   proxies:
     runs-on: ubuntu-latest

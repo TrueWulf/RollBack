@@ -23,7 +23,7 @@ The plugin uses Bukkit APIs and platform-aware scheduling. SQLite works out of t
 
 ## Quick Start
 
-1. Install `RollBack-0.5.0.jar` on the backend server.
+1. Install the backend artifact matching the server family and Minecraft version.
 2. Start the server and check `/rb status`.
 3. Preview a rollback before applying it:
 
@@ -58,18 +58,18 @@ The plugin uses Bukkit APIs and platform-aware scheduling. SQLite works out of t
 
 | Platform | Artifact | Status |
 | --- | --- | --- |
-| Bukkit, Spigot, Paper, Pufferfish, Purpur, Leaf, Patina | `RollBack-0.5.0.jar` | Bukkit API build |
-| Folia | `RollBack-0.5.0.jar` | Region scheduler path included |
-| Velocity | `rollback-velocity-0.5.0.jar` | Separate adapter |
-| Waterfall / BungeeCord-compatible proxy | `rollback-waterfall-0.5.0.jar` | Separate adapter |
+| Paper, Folia, Pufferfish, Purpur, Leaf, Patina | `RollBack-1.20.x.jar`, `RollBack-1.21.x.jar`, `RollBack-26.1.x.jar`, `RollBack-26.2.jar` | Paper API build for the matching version family |
+| Spigot and Bukkit-compatible forks | `RollBack-Spigot-1.20.x.jar`, `RollBack-Spigot-1.21.x.jar` | Spigot API build for the matching version family |
+| Velocity | `rollback-velocity-0.6.0.jar` | One proxy adapter; independent of backend Minecraft version |
+| Waterfall / BungeeCord-compatible proxy | `rollback-waterfall-0.6.0.jar` | One proxy adapter; independent of backend Minecraft version |
 
-The main artifact is compiled against Spigot API `1.20.6-R0.1-SNAPSHOT` and is intended for compatible Paper-family forks. Runtime verification must use the matching server version. Proxy adapters must not be installed in a Bukkit or Paper server.
+Each backend artifact is compiled against the matching Paper or Spigot API family and should be used only with its corresponding Minecraft version family. Runtime verification must use the matching server version. Proxy adapters must not be installed in a Bukkit or Paper server.
 
 See [`COMPATIBILITY.md`](COMPATIBILITY.md) for the support matrix and verification notes. See [`PROXY.md`](PROXY.md) for network deployment.
 
 ## Installation
 
-1. Download `RollBack-0.5.0.jar` from the release artifacts.
+1. Download the matching backend JAR from the release artifacts.
 2. Put it in the backend server `plugins` directory.
 3. Start the server once.
 4. Review `plugins/RollBack/config.yml`.
@@ -141,13 +141,35 @@ mvn clean test package
 mvn -f proxy/pom.xml clean test package
 ```
 
-Artifacts are written to:
+Backend artifacts are written to:
 
 ```text
-target/RollBack-0.5.0.jar
-proxy/velocity/target/rollback-velocity-0.5.0.jar
-proxy/waterfall/target/rollback-waterfall-0.5.0.jar
+target/RollBack-1.20.x.jar
+target/RollBack-Spigot-1.20.x.jar
+target/RollBack-1.21.x.jar
+target/RollBack-Spigot-1.21.x.jar
+target/RollBack-26.1.x.jar
+target/RollBack-26.2.jar
+
+Proxy artifacts are written to:
+
+```text
+proxy/velocity/target/rollback-velocity-0.6.0.jar
+proxy/waterfall/target/rollback-waterfall-0.6.0.jar
 ```
+
+Build a backend target with its Maven profile:
+
+```bash
+mvn clean test package -Pmc-1.20
+mvn clean test package -Pspigot-1.20
+mvn clean test package -Pmc-1.21
+mvn clean test package -Pspigot-1.21
+mvn clean test package -Pmc-26-1
+mvn clean test package -Pmc-26
+```
+
+Velocity and Waterfall adapters are compiled against their proxy APIs, not against Minecraft backend APIs. Use the same adapter JAR with supported backend versions; install the matching backend artifact separately on each server.
 
 ## License
 
