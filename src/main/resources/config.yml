@@ -1,0 +1,113 @@
+scheduler:
+  # auto selects the compatible Bukkit/Folia scheduler for the current server fork.
+  mode: auto
+  query-timeout-seconds: 15
+  shutdown-timeout-seconds: 10
+
+database:
+  # Supported embedded backends: sqlite and duckdb.
+  type: sqlite
+  file: rollback.db
+  duckdb-file: rollback.duckdb
+  queue-capacity: 100000
+  busy-timeout-ms: 5000
+  write-batch-size: 500
+  flush-timeout-ms: 1000
+  wal: true
+  synchronous: NORMAL
+  backup-enabled: false
+  backup-interval-hours: 24
+  backup-retain: 7
+
+logging:
+  blocks: true
+  containers: true
+  inventories: true
+  items: true
+  deaths: true
+  kills: true
+  crafting: true
+  cancelled-events: false
+  block-physics: false
+  pistons: false
+  explosions: false
+  fluids: false
+  entity-changes: false
+  max-actor-name-length: 64
+  max-metadata-length: 2048
+
+query:
+  # English is the default. Available: en, ru, pl, de, it, es, pt, pt_br, ja, fi.
+  default-time: 10m
+  default-scope: looking
+  default-radius: 0
+  default-limit: 1000
+  page-size: 10
+  session-timeout-seconds: 300
+  aggregate-events: true
+  aggregate-window-ms: 5000
+  max-limit: 10000
+  max-radius: 256
+  timeout-seconds: 15
+  flush-before-query: true
+  flush-timeout-ms: 1000
+  preview-lines: 10
+  show-coordinates: true
+  show-actor: true
+  show-event-id: true
+  compact-output: true
+  console-radius-required: false
+  case-insensitive-player: true
+  navigation-clickable: true
+  aggregate-only-same-container: true
+
+rollback:
+  max-events-per-operation: 10000
+  default-limit: 1000
+  max-radius: 256
+  require-preview: false
+  preview-duration-seconds: 60
+  operation-timeout-seconds: 30
+  apply-blocks: true
+  rollback-physics: false
+  check-current-state: true
+  skip-missing-worlds: true
+  skip-conflicts: true
+  mark-partial-operations: false
+  allow-undo: true
+  undo-timeout-seconds: 30
+
+permissions:
+  admin: rollback.admin
+  lookup: rollback.admin
+  rollback: rollback.admin
+  undo: rollback.admin
+  purge: rollback.admin
+  reload: rollback.admin
+
+retention:
+  enabled: false
+  keep: 30d
+  interval-hours: 24
+  protect-rollback-events: true
+  vacuum: false
+
+messages:
+  prefix: '[RollBack] '
+  async-start: 'Запрос #{id} принят.'
+  no-results: 'Ничего не найдено. Увеличь время или радиус.'
+  preview-limit: 10
+  language: en
+  locale-fallback: en
+  locale-files: 'en,ru,pl,de,it,es,pt,pt_br,ja,fi'
+
+ui:
+  # Use six-digit hex colors or legacy Minecraft color codes such as '&7'.
+  colors:
+    primary: '#5B8DFF'
+    accent: '#5BD9D1'
+    item: '#F5C24F'
+    text: '&f'
+    muted: '&7'
+    separator: '&8'
+    negative: '&c'

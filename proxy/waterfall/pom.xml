@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent><groupId>com.rollback</groupId><artifactId>rollback-proxy</artifactId><version>0.5.0</version></parent>
+    <artifactId>rollback-waterfall</artifactId>
+    <properties><maven.compiler.release>17</maven.compiler.release></properties>
+    <repositories><repository><id>sonatype</id><url>https://oss.sonatype.org/content/repositories/snapshots</url></repository></repositories>
+    <dependencies><dependency><groupId>net.md-5</groupId><artifactId>bungeecord-api</artifactId><version>1.21-R0.3</version><scope>provided</scope></dependency></dependencies>
+    <build><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.13.0</version><configuration><release>${maven.compiler.release}</release></configuration></plugin><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.3.1</version></plugin><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>3.4.2</version></plugin></plugins></build>
+</project>

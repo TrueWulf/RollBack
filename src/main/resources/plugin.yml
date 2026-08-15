@@ -1,0 +1,39 @@
+name: RollBack
+version: 0.5.0
+main: com.rollback.RollBackPlugin
+api-version: '1.20'
+folia-supported: true
+author: TrueWulf
+description: Conflict-aware rollback and event history for Bukkit-compatible servers
+
+commands:
+  rollback:
+    description: Inspect and safely rollback recorded server changes
+    usage: /rollback <help|status|lookup|rollback|undo|purge|reload|migrate-db> [options]
+    aliases: [rb]
+
+permissions:
+  rollback.admin:
+    description: Use RollBack administration commands
+    default: op
+  rollback.lookup:
+    description: Use lookup, inspect and page commands
+    default: op
+  rollback.rollback:
+    description: Apply block rollbacks
+    default: op
+  rollback.restore:
+    description: Restore block changes
+    default: op
+  rollback.undo:
+    description: Undo the latest rollback
+    default: op
+  rollback.purge:
+    description: Purge old events
+    default: op
+  rollback.reload:
+    description: Reload configuration
+    default: op
+  rollback.migrate:
+    description: Migrate the SQLite database to DuckDB
+    default: op

@@ -1,0 +1,10 @@
+target/
+proxy/*/target/
+*.db
+*.db-*
+*.duckdb
+*.duckdb.*
+*.bak
+.idea/
+*.iml
+.DS_Store
